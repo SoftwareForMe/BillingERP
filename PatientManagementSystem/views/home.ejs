@@ -1,0 +1,123 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Hero Section -->
+    <div class="text-center mb-16 animate-fade-in">
+        <h2 class="text-4xl md:text-5xl font-bold text-blue-600 mb-4">Welcome to the Patient Management System</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Streamline your healthcare practice with our comprehensive management solution</p>
+    </div>
+
+    <!-- Main Options Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <!-- Login Card -->
+        <div class="group">
+            <a href="/auth/login" class="block">
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 h-full border border-gray-100">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                            <i class="fas fa-sign-in-alt text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-600 group-hover:text-blue-700">Login</h3>
+                        <p class="text-gray-600 mt-2">Access your account securely</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Register Patient Card -->
+        <div class="group">
+            <a href="/patients" class="block">
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 h-full border border-gray-100">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                            <i class="fas fa-user-plus text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-600 group-hover:text-blue-700">Register Patient</h3>
+                        <p class="text-gray-600 mt-2">Add new patient records</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Consultations Card -->
+        <div class="group">
+            <a href="/consultations" class="block">
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 h-full border border-gray-100">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                            <i class="fas fa-stethoscope text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-600 group-hover:text-blue-700">Consultations</h3>
+                        <p class="text-gray-600 mt-2">Manage patient consultations</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Payments Card -->
+        <div class="group">
+            <a href="/payments" class="block">
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 h-full border border-gray-100">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                            <i class="fas fa-credit-card text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-600 group-hover:text-blue-700">Payments</h3>
+                        <p class="text-gray-600 mt-2">Process patient payments</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Invoices Card -->
+        <div class="group">
+            <a href="/invoices" class="block">
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 p-6 h-full border border-gray-100">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                            <i class="fas fa-file-invoice text-3xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-600 group-hover:text-blue-700">Invoices</h3>
+                        <p class="text-gray-600 mt-2">Generate and view invoices</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <h3 class="text-2xl font-bold text-blue-600 mb-6 text-center">Quick Statistics</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="text-center p-4 rounded-lg bg-blue-50">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-users text-2xl text-blue-600"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-blue-600">Total Patients</h4>
+                <p class="text-3xl font-bold text-gray-700 mt-2">0</p>
+            </div>
+            <div class="text-center p-4 rounded-lg bg-blue-50">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-calendar-check text-2xl text-blue-600"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-blue-600">Today's Appointments</h4>
+                <p class="text-3xl font-bold text-gray-700 mt-2">0</p>
+            </div>
+            <div class="text-center p-4 rounded-lg bg-blue-50">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-chart-line text-2xl text-blue-600"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-blue-600">Monthly Revenue</h4>
+                <p class="text-3xl font-bold text-gray-700 mt-2">$0</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease-in;
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+</style>
