@@ -1,0 +1,17 @@
+<%- include('../layouts/main') %>
+<h2>Invoice</h2>
+<p class="font-bold">Invoice Details:</p>
+<div class="bg-white shadow-md rounded p-4">
+    <p>Invoice Number: <%= invoice.number %></p>
+    <p>Date: <%= invoice.date %></p>
+    <p>Patient Name: <%= invoice.patientName %></p>
+    <p>Amount: $<%= invoice.amount %></p>
+    <p>Status: <%= invoice.status %></p>
+    <!-- Display itemized charges -->
+    <ul class="list-disc pl-5">
+        <% invoice.items.forEach(item => { %>
+            <li><%= item.description %>: $<%= item.amount %></li>
+        <% }); %>
+    </ul>
+</div>
+<a href="/invoices/print/<%= invoice.id %>" class="btn bg-blue-600 text-white py-2 px-4 rounded">Print Invoice</a>

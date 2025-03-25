@@ -1,0 +1,17 @@
+<%- include('../layouts/main') %>
+<h2>Register Patient</h2>
+<form action="/patients" method="POST" class="bg-white shadow-md rounded p-4">
+    <label for="name" class="block font-bold">Name:</label>
+    <input type="text" id="name" name="name" required class="border rounded p-2 w-full">
+    
+    <label for="age" class="block font-bold mt-4">Age:</label>
+    <input type="number" id="age" name="age" required class="border rounded p-2 w-full">
+    
+    <label for="contact" class="block font-bold mt-4">Contact:</label>
+    <input type="text" id="contact" name="contact" required class="border rounded p-2 w-full">
+    
+    <label for="medicalHistory" class="block font-bold mt-4">Medical History:</label>
+    <textarea id="medicalHistory" name="medicalHistory" class="border rounded p-2 w-full"></textarea>
+    
+    <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded mt-4">Register</button>
+</form>
