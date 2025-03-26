@@ -3,51 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Management System</title>
+    <title>BillingERP - Healthcare Management System</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css">
-</head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
-    <header class="bg-blue-600 text-white shadow-lg">
-        <div class="container mx-auto px-4 py-6">
-            <h1 class="text-3xl font-bold text-center mb-6 animate-fade-in">Patient Management System</h1>
-            <nav>
-                <ul class="flex flex-wrap justify-center space-x-8">
-                    <li><a href="/" class="nav-link flex items-center space-x-2 hover:text-blue-200">
-                        <i class="fas fa-home"></i><span>Home</span>
-                    </a></li>
-                    <li><a href="/auth/login" class="nav-link flex items-center space-x-2 hover:text-blue-200">
-                        <i class="fas fa-sign-in-alt"></i><span>Login</span>
-                    </a></li>
-                    <li><a href="/patients" class="nav-link flex items-center space-x-2 hover:text-blue-200">
-                        <i class="fas fa-user-plus"></i><span>Register Patient</span>
-                    </a></li>
-                    <li><a href="/consultations" class="nav-link flex items-center space-x-2 hover:text-blue-200">
-                        <i class="fas fa-stethoscope"></i><span>Consultations</span>
-                    </a></li>
-                    <li><a href="/payments" class="nav-link flex items-center space-x-2 hover:text-blue-200">
-                        <i class="fas fa-credit-card"></i><span>Payments</span>
-                    </a></li>
-                    <li><a href="/invoices" class="nav-link flex items-center space-x-2 hover:text-blue-200">
-                        <i class="fas fa-file-invoice"></i><span>Invoices</span>
-                    </a></li>
-                    <li><a href="/auth/logout" class="nav-link flex items-center space-x-2 hover:text-blue-200">
-                        <i class="fas fa-sign-out-alt"></i><span>Logout</span>
-                    </a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <%- body %>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <% if (locals.user) { %>
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="/" class="text-xl font-bold text-indigo-600">BillingERP</a>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <% if (user.role === 'doctor') { %>
+                            <a href="/doctor/dashboard" class="nav-link <%= locals.page === 'dashboard' ? 'nav-link-active' : '' %>">
+                                Dashboard
+                            </a>
+                            <a href="/consultations" class="nav-link <%= locals.page === 'consultations' ? 'nav-link-active' : '' %>">
+                                Consultations
+                            </a>
+                            <a href="/patients" class="nav-link <%= locals.page === 'patients' ? 'nav-link-active' : '' %>">
+                                Patients
+                            </a>
+                        <% } else if (user.role === 'registrar') { %>
+                            <a href="/registrar/dashboard" class="nav-link <%= locals.page === 'dashboard' ? 'nav-link-active' : '' %>">
+                                Dashboard
+                            </a>
+                            <a href="/patients/register" class="nav-link <%= locals.page === 'register' ? 'nav-link-active' : '' %>">
+                                Register Patient
+                            </a>
+                            <a href="/payments" class="nav-link <%= locals.page === 'payments' ? 'nav-link-active' : '' %>">
+                                Payments
+                            </a>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <!-- Notifications -->
+                    <button class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span class="sr-only">View notifications</span>
+                        <i class="fas fa-bell"></i>
+                    </button>
+
+                    <!-- Profile dropdown -->
+                    <div class="ml-3 relative">
+                        <div class="flex items-center">
+                            <span class="text-sm font-medium text-gray-700 mr-2"><%= user.name %></span>
+                            <button class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <span class="sr-only">Open user menu</span>
+                                <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Logout -->
+                    <a href="/auth/logout" class="ml-4 nav-link text-red-600 hover:text-red-900">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <% } %>
+
+    <!-- Main Content -->
+    <main class="py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <%- body %>
+        </div>
     </main>
 
-    <footer class="bg-blue-600 text-white py-6 mt-auto">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 Patient Management System. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="text-sm text-gray-500">
+                    &copy; <%= new Date().getFullYear() %> BillingERP. All rights reserved.
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
