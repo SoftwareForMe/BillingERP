@@ -1,1 +1,286 @@
+<div class="max-w-7xl mx-auto">
+    <!-- Page Header -->
+    <div class="md:flex md:items-center md:justify-between mb-6">
+        <div class="flex-1 min-w-0">
+            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                Patient History
+            </h2>
+            <p class="mt-1 text-sm text-gray-500">
+                Complete medical history and records
+            </p>
+        </div>
+        <div class="mt-4 flex md:mt-0 md:ml-4 space-x-3">
+            <button onclick="window.print()" 
+                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <i class="fas fa-print mr-2"></i>
+                Print History
+            </button>
+            <a href="/patients/<%= patient.id %>/edit" 
+                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <i class="fas fa-edit mr-2"></i>
+                Edit Patient
+            </a>
+        </div>
+    </div>
 
+    <!-- Patient Information Card -->
+    <div class="bg-white shadow-sm rounded-lg mb-6">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <div class="h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center">
+                        <i class="fas fa-user text-gray-500 text-2xl"></i>
+                    </div>
+                </div>
+                <div class="ml-6">
+                    <h3 class="text-xl font-bold text-gray-900"><%= patient.name %></h3>
+                    <div class="mt-1 grid grid-cols-2 gap-x-6 text-sm text-gray-500">
+                        <div>ID: <%= patient.id %></div>
+                        <div>Age: <%= patient.age %></div>
+                        <div>Gender: <%= patient.gender %></div>
+                        <div>Blood Group: <%= patient.bloodGroup %></div>
+                        <div>Contact: <%= patient.contact %></div>
+                        <div>Email: <%= patient.email %></div>
+                    </div>
+                </div>
+                <div class="ml-auto">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium 
+                        <%= patient.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+                        <%= patient.status %>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medical History Tabs -->
+    <div class="bg-white shadow-sm rounded-lg mb-6">
+        <div class="border-b border-gray-200">
+            <nav class="-mb-px flex" aria-label="Tabs">
+                <button onclick="showTab('consultations')" 
+                    class="tab-button w-1/4 py-4 px-1 text-center border-b-2 border-indigo-500 font-medium text-sm text-indigo-600">
+                    Consultations
+                </button>
+                <button onclick="showTab('prescriptions')" 
+                    class="tab-button w-1/4 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                    Prescriptions
+                </button>
+                <button onclick="showTab('lab-reports')" 
+                    class="tab-button w-1/4 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                    Lab Reports
+                </button>
+                <button onclick="showTab('payments')" 
+                    class="tab-button w-1/4 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                    Payments
+                </button>
+            </nav>
+        </div>
+
+        <!-- Consultations Tab -->
+        <div id="consultations" class="tab-content p-6">
+            <div class="flow-root">
+                <ul role="list" class="-mb-8">
+                    <% patient.consultations.forEach((consultation, index) => { %>
+                        <li>
+                            <div class="relative pb-8">
+                                <% if (index !== patient.consultations.length - 1) { %>
+                                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                <% } %>
+                                <div class="relative flex space-x-3">
+                                    <div>
+                                        <span class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center ring-8 ring-white">
+                                            <i class="fas fa-stethoscope text-white"></i>
+                                        </span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="text-sm text-gray-500">
+                                            <span class="font-medium text-gray-900">Dr. <%= consultation.doctorName %></span>
+                                            <span class="ml-2 text-gray-500"><%= new Date(consultation.date).toLocaleDateString() %></span>
+                                        </div>
+                                        <div class="mt-2 text-sm text-gray-700">
+                                            <p><strong>Chief Complaint:</strong> <%= consultation.chiefComplaint %></p>
+                                            <p class="mt-1"><strong>Diagnosis:</strong> <%= consultation.diagnosis %></p>
+                                            <p class="mt-1"><strong>Treatment:</strong> <%= consultation.treatment %></p>
+                                        </div>
+                                        <div class="mt-2 text-sm">
+                                            <a href="/consultations/<%= consultation.id %>" class="text-indigo-600 hover:text-indigo-900">
+                                                View Details <i class="fas fa-arrow-right ml-1"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Prescriptions Tab -->
+        <div id="prescriptions" class="tab-content hidden p-6">
+            <div class="space-y-6">
+                <% patient.prescriptions.forEach(prescription => { %>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h4 class="text-lg font-medium text-gray-900">
+                                    Prescription #<%= prescription.id %>
+                                </h4>
+                                <p class="text-sm text-gray-500">
+                                    Prescribed by Dr. <%= prescription.doctorName %> on 
+                                    <%= new Date(prescription.date).toLocaleDateString() %>
+                                </p>
+                            </div>
+                            <a href="/prescriptions/<%= prescription.id %>/download" 
+                                class="text-indigo-600 hover:text-indigo-900">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                        <div class="border-t border-gray-200 pt-4">
+                            <h5 class="text-sm font-medium text-gray-900 mb-2">Medications:</h5>
+                            <ul class="space-y-2">
+                                <% prescription.medications.forEach(medication => { %>
+                                    <li class="text-sm text-gray-700">
+                                        <span class="font-medium"><%= medication.name %></span> - 
+                                        <%= medication.dosage %> (<%= medication.duration %>)
+                                        <% if (medication.instructions) { %>
+                                            <br>
+                                            <span class="text-gray-500"><%= medication.instructions %></span>
+                                        <% } %>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+
+        <!-- Lab Reports Tab -->
+        <div id="lab-reports" class="tab-content hidden p-6">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <% patient.labReports.forEach(report => { %>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-sm font-medium text-gray-900"><%= report.testName %></h4>
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                <%= report.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
+                                <%= report.status %>
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-500">Date: <%= new Date(report.date).toLocaleDateString() %></p>
+                        <p class="text-sm text-gray-500">Ref Dr: <%= report.referredBy %></p>
+                        <div class="mt-3 flex justify-end">
+                            <a href="/lab-reports/<%= report.id %>" 
+                                class="text-indigo-600 hover:text-indigo-900 text-sm">
+                                View Report <i class="fas fa-external-link-alt ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+
+        <!-- Payments Tab -->
+        <div id="payments" class="tab-content hidden p-6">
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="overflow-hidden">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Date
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Invoice #
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Amount
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Status
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Mode
+                                        </th>
+                                        <th scope="col" class="relative px-6 py-3">
+                                            <span class="sr-only">Actions</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <% patient.payments.forEach(payment => { %>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                <%= new Date(payment.date).toLocaleDateString() %>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                INV-<%= payment.invoiceId %>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                $<%= payment.amount.toFixed(2) %>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                    <%= payment.status === 'Paid' ? 'bg-green-100 text-green-800' : 
+                                                        payment.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 
+                                                        'bg-red-100 text-red-800' %>">
+                                                    <%= payment.status %>
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <%= payment.mode %>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                <a href="/invoices/<%= payment.invoiceId %>" class="text-indigo-600 hover:text-indigo-900">
+                                                    View Invoice
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showTab(tabId) {
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.add('hidden');
+    });
+    
+    // Show selected tab content
+    document.getElementById(tabId).classList.remove('hidden');
+    
+    // Update tab button styles
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('border-indigo-500', 'text-indigo-600');
+        button.classList.add('border-transparent', 'text-gray-500');
+    });
+    
+    // Style active tab button
+    event.currentTarget.classList.remove('border-transparent', 'text-gray-500');
+    event.currentTarget.classList.add('border-indigo-500', 'text-indigo-600');
+}
+
+// Print styles
+if (window.matchMedia) {
+    const mediaQueryList = window.matchMedia('print');
+    mediaQueryList.addListener(function(mql) {
+        if (mql.matches) {
+            // Show all tabs when printing
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('hidden');
+            });
+        }
+    });
+}
+</script>
