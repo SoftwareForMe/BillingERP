@@ -1,0 +1,105 @@
+<div class="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full text-center">
+        <!-- Error Icon -->
+        <div class="mb-8">
+            <div class="mx-auto h-24 w-24 text-red-500">
+                <% if (locals.statusCode === 404) { %>
+                    <i class="fas fa-search text-8xl"></i>
+                <% } else if (locals.statusCode === 403) { %>
+                    <i class="fas fa-lock text-8xl"></i>
+                <% } else if (locals.statusCode === 401) { %>
+                    <i class="fas fa-user-lock text-8xl"></i>
+                <% } else { %>
+                    <i class="fas fa-exclamation-circle text-8xl"></i>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">
+                <% if (locals.statusCode === 404) { %>
+                    Page Not Found
+                <% } else if (locals.statusCode === 403) { %>
+                    Access Denied
+                <% } else if (locals.statusCode === 401) { %>
+                    Unauthorized Access
+                <% } else { %>
+                    Oops! Something went wrong
+                <% } %>
+            </h1>
+            <p class="text-lg text-gray-600">
+                <% if (locals.message) { %>
+                    <%= message %>
+                <% } else { %>
+                    <% if (locals.statusCode === 404) { %>
+                        The page you're looking for doesn't exist or has been moved.
+                    <% } else if (locals.statusCode === 403) { %>
+                        You don't have permission to access this resource.
+                    <% } else if (locals.statusCode === 401) { %>
+                        Please log in to access this page.
+                    <% } else { %>
+                        We encountered an unexpected error. Please try again later.
+                    <% } %>
+                <% } %>
+            </p>
+        </div>
+
+        <!-- Error Details (for development) -->
+        <% if (process.env.NODE_ENV === 'development' && locals.error) { %>
+            <div class="mb-8 p-4 bg-gray-100 rounded-lg">
+                <p class="text-left text-sm font-mono text-gray-600 break-all">
+                    <%= error.stack %>
+                </p>
+            </div>
+        <% } %>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+            <button onclick="window.history.back()" 
+                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Go Back
+            </button>
+            <a href="/" 
+                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <i class="fas fa-home mr-2"></i>
+                Return Home
+            </a>
+            <% if (locals.statusCode === 401) { %>
+                <a href="/auth/login" 
+                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    Log In
+                </a>
+            <% } %>
+        </div>
+
+        <!-- Support Contact -->
+        <div class="mt-8 text-sm text-gray-500">
+            <p>Need help? Contact our support team</p>
+            <div class="mt-2 flex justify-center space-x-4">
+                <a href="mailto:support@healthcare.com" class="text-indigo-600 hover:text-indigo-500">
+                    <i class="fas fa-envelope mr-1"></i>
+                    Email Support
+                </a>
+                <span class="text-gray-300">|</span>
+                <a href="tel:+1234567890" class="text-indigo-600 hover:text-indigo-500">
+                    <i class="fas fa-phone mr-1"></i>
+                    Call Support
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% if (process.env.NODE_ENV === 'development') { %>
+    <script>
+    // Log error details to console in development
+    console.error('Error Details:', {
+        statusCode: '<%= locals.statusCode %>',
+        message: '<%= locals.message %>',
+        stack: `<%= locals.error ? error.stack : '' %>`
+    });
+    </script>
+<% } %>
