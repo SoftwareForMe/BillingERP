@@ -1,0 +1,243 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="md:flex md:items-center md:justify-between mb-6">
+        <div class="flex-1 min-w-0">
+            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                New Consultation
+            </h2>
+            <p class="mt-1 text-sm text-gray-500">
+                Record patient consultation details
+            </p>
+        </div>
+    </div>
+
+    <div class="bg-white shadow-sm rounded-lg">
+        <form action="/consultations" method="POST" class="space-y-8 divide-y divide-gray-200">
+            <!-- Patient Selection -->
+            <div class="space-y-6 sm:space-y-5 p-6">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Patient Information</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">Select patient and enter consultation details.</p>
+                </div>
+
+                <div class="space-y-6 sm:space-y-5">
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                        <label for="patient" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Select Patient
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <select id="patient" name="patientId" required 
+                                class="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                <option value="">Select a patient</option>
+                                <% patients.forEach(patient => { %>
+                                    <option value="<%= patient.id %>">
+                                        <%= patient.name %> - <%= patient.id %> (<%= patient.age %>y, <%= patient.gender %>)
+                                    </option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                        <label for="visitType" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Visit Type
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <select id="visitType" name="visitType" required 
+                                class="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                <option value="initial">Initial Visit</option>
+                                <option value="followup">Follow-up</option>
+                                <option value="emergency">Emergency</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vital Signs -->
+            <div class="space-y-6 sm:space-y-5 p-6">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Vital Signs</h3>
+                </div>
+
+                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                    <div>
+                        <label for="temperature" class="block text-sm font-medium text-gray-700">Temperature (°F)</label>
+                        <div class="mt-1">
+                            <input type="number" step="0.1" name="temperature" id="temperature" 
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="bloodPressure" class="block text-sm font-medium text-gray-700">Blood Pressure</label>
+                        <div class="mt-1">
+                            <input type="text" name="bloodPressure" id="bloodPressure" placeholder="120/80" 
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="pulse" class="block text-sm font-medium text-gray-700">Pulse Rate (bpm)</label>
+                        <div class="mt-1">
+                            <input type="number" name="pulse" id="pulse" 
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="respiratoryRate" class="block text-sm font-medium text-gray-700">Respiratory Rate</label>
+                        <div class="mt-1">
+                            <input type="number" name="respiratoryRate" id="respiratoryRate" 
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consultation Details -->
+            <div class="space-y-6 sm:space-y-5 p-6">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Consultation Details</h3>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label for="chiefComplaint" class="block text-sm font-medium text-gray-700">
+                            Chief Complaint
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="chiefComplaint" name="chiefComplaint" rows="3" required
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="history" class="block text-sm font-medium text-gray-700">
+                            History of Present Illness
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="history" name="history" rows="3"
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="examination" class="block text-sm font-medium text-gray-700">
+                            Physical Examination
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="examination" name="examination" rows="3" required
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="diagnosis" class="block text-sm font-medium text-gray-700">
+                            Diagnosis
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="diagnosis" name="diagnosis" rows="2" required
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="treatment" class="block text-sm font-medium text-gray-700">
+                            Treatment Plan
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="treatment" name="treatment" rows="3" required
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="notes" class="block text-sm font-medium text-gray-700">
+                            Additional Notes
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="notes" name="notes" rows="2"
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Follow-up -->
+            <div class="space-y-6 sm:space-y-5 p-6">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Follow-up</h3>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                        <label for="followupDate" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Follow-up Date
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <input type="date" name="followupDate" id="followupDate" 
+                                class="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                        <label for="followupNotes" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Follow-up Instructions
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <textarea id="followupNotes" name="followupNotes" rows="2"
+                                class="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="pt-5 px-6 pb-6">
+                <div class="flex justify-end">
+                    <button type="button" onclick="window.history.back()" 
+                        class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Save Consultation
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Set default follow-up date to 7 days from today
+    const followupDate = document.getElementById('followupDate');
+    const defaultDate = new Date();
+    defaultDate.setDate(defaultDate.getDate() + 7);
+    followupDate.value = defaultDate.toISOString().split('T')[0];
+
+    // Form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const patient = document.getElementById('patient');
+        if (!patient.value) {
+            e.preventDefault();
+            alert('Please select a patient');
+            patient.focus();
+            return;
+        }
+
+        const requiredFields = ['chiefComplaint', 'examination', 'diagnosis', 'treatment'];
+        for (const fieldId of requiredFields) {
+            const field = document.getElementById(fieldId);
+            if (!field.value.trim()) {
+                e.preventDefault();
+                alert(`Please fill in the ${fieldId.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+                field.focus();
+                return;
+            }
+        }
+    });
+});
+</script>
